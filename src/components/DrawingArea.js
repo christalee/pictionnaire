@@ -4,8 +4,9 @@ import { Stage, Layer, Line } from 'react-konva';
 // https://medium.com/bb-tutorials-and-thoughts/how-to-implement-drawing-in-react-app-aba092e926e6
 
 const DrawingArea = ({onClearLines, clearLines}) => {
-  const [tool, setTool] = useState('pen');
+  const [tool, setTool] = useState('draw');
   const [width, setWidth] = useState(2);
+  const [color, setColor] = useState("black")
   const [lines, setLines] = useState([]);
   const isDrawing = useRef(false);
 
@@ -16,7 +17,7 @@ const DrawingArea = ({onClearLines, clearLines}) => {
   const handleMouseDown = (e) => {
     isDrawing.current = true;
     const pos = e.target.getStage().getPointerPosition();
-    setLines([...lines, {tool, width, points: [pos.x, pos.y]}]);
+    setLines([...lines, {tool, width, color, points: [pos.x, pos.y]}]);
   };
 
   const handleMouseMove = (e) => {
@@ -52,7 +53,7 @@ const DrawingArea = ({onClearLines, clearLines}) => {
           {lines.map((line, i) => (
             <Line key={i}
                   points={line.points}
-                  stroke="#000"
+                  stroke={line.color}
                   strokeWidth={line.width}
                   tension={0.5}
                   lineCap="round"
@@ -70,8 +71,8 @@ const DrawingArea = ({onClearLines, clearLines}) => {
           setTool(e.target.value);
         }}
       >
-        <option value="pen">Pen</option>
-        <option value="eraser">Eraser</option>
+        <option value="draw">draw</option>
+        <option value="eraser">erase</option>
       </select>
       <select id="width"
     value={width}
@@ -82,7 +83,19 @@ const DrawingArea = ({onClearLines, clearLines}) => {
     <option value="2">thin</option>
     <option value="5">thick</option>
     <option value="10">chonk</option>
-  </select></div>
+  </select>
+  <select id="color"
+value={color}
+onChange={(e) => {
+  setColor(e.target.value);
+}}
+>
+<option value="red">red</option>
+<option value="blue">blue</option>
+<option value="green">green</option>
+<option value="black">black</option>
+</select>
+  </div>
           </div>
   )
 }

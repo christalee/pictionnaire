@@ -1,5 +1,5 @@
 {
-  "name": "pictionary",
+  "name": "pictionnaire",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,10 +11,15 @@
     "react-dom": "^17.0.2",
     "react-konva": "*",
     "react-scripts": "4.0.3",
+    "socket.io": "^4.1.2",
+    "socket.io-client": "^4.1.2",
     "web-vitals": "^1.1.2"
   },
+  "proxy": "http://localhost:8080/",
   "scripts": {
-    "start": "react-scripts start",
+    "client": "react-scripts start",
+    "server": "node server/server.js",
+    "start": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

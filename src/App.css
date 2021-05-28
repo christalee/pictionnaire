@@ -20,14 +20,37 @@ h1 {
   left: 5px;
 }
 
-/* #tool {
-  position: absolute;
-  top: 5px;
-  left: 5px;
+.colors {
+  position: fixed;
 }
 
-#width {
-  position: absolute;
-  top: 20px;
-  left: 5px;
-} */
+.color {
+  display: inline-block;
+  border: 1px solid black;
+  height: 48px;
+  width: 48px;
+}
+
+.color.black {
+  background-color: black;
+}
+
+.color.red {
+  background-color: red;
+}
+
+.color.blue {
+  background-color: blue;
+}
+
+.color.green {
+  background-color: green;
+}
+
+.color.yellow {
+  background-color: yellow;
+}
+
+.color.white {
+  background-color: white;
+}

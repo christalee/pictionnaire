@@ -3,9 +3,7 @@ import React, {
     useState,
     useRef,
 } from 'react';
-import {
-    io
-} from 'socket.io-client';
+
 import {
     Stage,
     Layer,
@@ -15,8 +13,7 @@ import {
 // https://medium.com/bb-tutorials-and-thoughts/how-to-implement-drawing-in-react-app-aba092e926e6
 
 const DrawingArea = ({
-    onClearLines,
-    clearLines
+    socket
 }) => {
     const [tool, setTool] = useState('draw');
     const [width, setWidth] = useState(2);
@@ -27,7 +24,7 @@ const DrawingArea = ({
 
     useEffect(() => {
         //loadImage();
-    }, [clearLines])
+    }, [])
 
     const colors = document.getElementsByClassName('color');
     // console.log(colors, 'the colors');
@@ -38,15 +35,15 @@ const DrawingArea = ({
         colors[i].addEventListener('click', onColorUpdate, false);
     }
 
-    const socket = io.connect("/");
     socket.on("drawing", (arg) => {
-        console.log(arg);
-        setLines(lines.concat(arg));
+        console.log("client drawing");
+        setLines(arg);
     });
 
     const handleMouseDown = (e) => {
         isDrawing.current = true;
         const pos = e.target.getStage().getPointerPosition();
+        console.log("mousedown");
         setLines([...lines, {
             tool,
             width,
@@ -64,18 +61,19 @@ const DrawingArea = ({
 
         let lastLine = lines[lines.length - 1];
         if (lastLine) {
-            lastLine.points = lastLine.points.concat([point.x, point.y, ]);
+            lastLine.points = lastLine.points.concat([point.x, point.y]);
             // why concat an empty arg? should replace this splice?
             lines.splice(lines.length - 1, 1, lastLine);
+            console.log("mousemove");
             setLines(lines.concat());
         }
 
     };
 
     const handleMouseUp = () => {
-        let lastLine = lines[lines.length - 1];
         isDrawing.current = false;
-        socket.emit('drawing', lastLine);
+        console.log("mouseup");
+        socket.emit('drawing', lines);
     };
 
     return (

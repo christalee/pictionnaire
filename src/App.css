@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: row;
 }
 
 h1 {
@@ -7,21 +9,25 @@ h1 {
 }
 
 .drawing-area {
-  width: 600px;
+  width: 50%;
   height: 600px;
   background-color: white;
-  border: 2px solid blue;
-  margin: auto;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  border-radius: 1rem;
+  margin: auto 0 auto auto;
 }
 
 .select {
-  position: absolute;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height: 50px;
   top: 5px;
   left: 5px;
 }
 
 .colors {
-  position: fixed;
+  position: relative;
 }
 
 .color {
@@ -39,8 +45,16 @@ h1 {
   background-color: red;
 }
 
+.color.orange {
+  background-color: orange;
+}
+
 .color.blue {
   background-color: blue;
+}
+
+.color.purple {
+  background-color: purple;
 }
 
 .color.green {
@@ -53,4 +67,64 @@ h1 {
 
 .color.white {
   background-color: white;
+}
+
+#form {
+  background: rgba(0, 0, 0, 0.15);
+  padding: 0.25rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  height: 3rem;
+
+  /* width: inherit; */
+  box-sizing: border-box;
+  backdrop-filter: blur(10px);
+}
+
+#input {
+  border: none;
+  padding: 0 1rem;
+  flex-grow: 1;
+  border-radius: 2rem;
+  margin: 0.25rem;
+}
+
+#input:focus {
+  outline: none;
+}
+
+#form > button {
+  background: #333;
+  border: none;
+  padding: 0 1rem;
+  margin: 0.25rem;
+  border-radius: 3px;
+  outline: none;
+  color: #fff;
+}
+
+#messages {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#messages > li {
+  padding: 0.5rem 1rem;
+}
+
+#messages > li:nth-child(odd) {
+  background: #efefef;
+}
+
+.chat {
+  text-align: left;
+  width: 25%;
+  position: relative;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  border-radius: 1rem;
+  overflow: hidden;
 }

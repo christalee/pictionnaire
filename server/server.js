@@ -16,10 +16,17 @@ app.get("*", (req, res) =>
 );
 
 const onConnection = (socket) => {
+  console.log('client connected: ', socket.id);
+  socket.emit("connection", socket.id);
+  io.emit("io_connection", socket.id);
     socket.on('drawing', (data) => {
         console.log("server drawing", data);
         io.emit('drawing', data);
     });
+    socket.on('chat', (data) => {
+      console.log('chat', data);
+      io.emit('chat', data);
+    })
 }
 io.on('connection', onConnection);
 
